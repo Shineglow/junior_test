@@ -47,6 +47,7 @@ func cell_pressed(is_left_btn, column, line):
 		else:
 			# Клетка закрыта - поставили флаг сверху
 			cell.show_flag()
+			check_is_finish()
 	elif cell.status == consts.STATES.FLAG && !is_left_btn:
 		# Снимаем фалг с клетки
 		cell.hide_flag()
@@ -84,12 +85,17 @@ func check_is_finish():
 # Все клетки отгаданы? Количество бомб равно количеству закрытых клеток?
 func _is_finish():
 	var closed_cells = 0
+	var flagged_bomb = 0
 	for i in level.size():
 		for j in level.size():
 			var cell = desk.get_cell(j, i)
-			if cell.status == consts.STATES.COLSED:
+			if level[i][j] != consts.BOMB && cell.status == consts.STATES.OPEN:
 				closed_cells += 1
-	return closed_cells == consts.BOMB_QUANTITY
+				continue
+			if cell.status == consts.STATES.FLAG && level[i][j] == consts.BOMB:
+				flagged_bomb += 1
+	
+	return (flagged_bomb == consts.BOMB_QUANTITY && closed_cells == (level.size()*level.size() - consts.BOMB_QUANTITY))
 
 
 func show_bombs():
