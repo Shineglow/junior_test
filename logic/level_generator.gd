@@ -21,13 +21,11 @@ func create_level(size, bombs, force_free_points = []):
 		if level[point.x][point.y] == consts.EMPTY:
 			level[point.x][point.y] = consts.BOMB
 			bombs -= 1
-	print_level(level)
 	# заполняем цифры на поле
 	for i in size:
 		for j in size:
 			if level[i][j] != consts.BOMB:
 				level[i][j] = count_bombs_neighbors(level, i, j)
-	print_level(level)
 	return level
 
 
