@@ -62,7 +62,7 @@ func open_cell(cell, column, line):
 
 func open_neighbors(line, column):
 	for neighbor in desk.get_cell_neighbors(column, line):
-		if neighbor.status == consts.STATES.COLSED && level[neighbor.line][neighbor.column] == consts.EMPTY:
+		if neighbor.status == consts.STATES.COLSED && level[neighbor.line][neighbor.column] != consts.BOMB:
 			var cell = desk.get_cell(neighbor.column, neighbor.line)
 			open_cell(cell, neighbor.column, neighbor.line)
 
