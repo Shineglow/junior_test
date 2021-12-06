@@ -34,11 +34,11 @@ func cell_pressed(is_left_btn, column, line):
 	if !level:
 		# Генерируем уровень при первом нажатии
 		level = level_generator.create_level(consts.DESK_SIZE, consts.BOMB_QUANTITY, [Vector2(line, column)])
-	if level[line][column] == consts.BOMB && is_left_btn:
+	var cell = desk.get_cell(column, line)
+	if level[line][column] == consts.BOMB && is_left_btn && !cell.status == consts.STATES.FLAG:
 		# Нажали на бомбу
 		game_over()
 		return
-	var cell = desk.get_cell(column, line)
 	if cell.status == consts.STATES.COLSED:
 		if is_left_btn:
 			# Открыли новую клетку без бомбы
