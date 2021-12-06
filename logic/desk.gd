@@ -27,7 +27,6 @@ func create_desk(desk_size: int):
 func clear_desk():
 	cell_array = []
 	for child in get_children():
-		child.set_parent(null)
 		child.queue_free()
 
 # Удобный доступ к клетке по ее адресу
